@@ -1,32 +1,67 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+
+:root {
+  --bg: #1c1c2e;
+  --card: rgba(255, 255, 255, 0.05);
+  --text: #ffffff;
+  --input-bg: #2c2c3f;
+  --primary: #00b894;
+  --danger: #ff7675;
+  --light: #ffffff;
+}
+
+body.light {
+  --bg: #f5f6fa;
+  --card: #ffffff;
+  --text: #2d3436;
+  --input-bg: #dfe6e9;
+  --primary: #00cec9;
+  --danger: #d63031;
+  --light: #2d3436;
+}
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, #2e2e3e, #1c1c2e);
-  color: #ffffff;
+  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  color: var(--text);
   display: flex;
   justify-content: center;
   align-items: flex-start;
   height: 100vh;
   padding-top: 60px;
-  overflow: hidden;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Theme toggle */
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+.theme-toggle input {
+  display: none;
+}
+.theme-toggle span {
+  font-size: 22px;
+  cursor: pointer;
 }
 
 .container {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--card);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   padding: 30px;
-  width: 400px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  width: 420px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
   z-index: 2;
 }
 
 h1 {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   font-weight: 600;
   font-size: 26px;
 }
@@ -37,18 +72,26 @@ h1 {
   margin-bottom: 20px;
 }
 
-input {
-  flex: 1;
+input,
+select {
   padding: 12px;
   border: none;
   border-radius: 12px;
   font-size: 16px;
-  background: #2c2c3f;
-  color: white;
+  background: var(--input-bg);
+  color: var(--text);
+}
+
+input {
+  flex: 2;
+}
+
+select {
+  flex: 1;
 }
 
 button {
-  background: #00b894;
+  background: var(--primary);
   color: white;
   border: none;
   border-radius: 12px;
@@ -57,7 +100,6 @@ button {
   cursor: pointer;
   transition: transform 0.2s, background 0.3s;
 }
-
 button:hover {
   background: #00a383;
   transform: scale(1.05);
@@ -70,7 +112,6 @@ ul {
 }
 
 li {
-  background: #3e3e50;
   padding: 12px 14px;
   margin-bottom: 12px;
   border-radius: 14px;
@@ -79,11 +120,8 @@ li {
   justify-content: space-between;
   gap: 14px;
   animation: fadeIn 0.3s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  color: var(--light);
 }
 
 li.completed span {
@@ -95,16 +133,15 @@ li.completed span {
   background: #2f2f42;
   padding: 8px;
   border-radius: 8px;
-  box-shadow: 0 0 6px rgba(0,0,0,0.3);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .checkbox-box input[type="checkbox"] {
   width: 18px;
   height: 18px;
-  accent-color: #00b894;
+  accent-color: var(--primary);
   cursor: pointer;
 }
 
@@ -115,7 +152,7 @@ li span {
 }
 
 .delete-btn {
-  background: #ff7675;
+  background: var(--danger);
   border: none;
   color: white;
   padding: 6px 12px;
@@ -124,11 +161,11 @@ li span {
   cursor: pointer;
   transition: background 0.2s;
 }
-
 .delete-btn:hover {
   background: #d63031;
 }
 
+/* Sparkles */
 .sparkle-container {
   position: absolute;
   top: 0;
@@ -139,7 +176,6 @@ li span {
   overflow: hidden;
   z-index: 1;
 }
-
 .sparkle {
   position: absolute;
   width: 6px;
@@ -148,7 +184,6 @@ li span {
   border-radius: 50%;
   animation: sparkle 1s ease-out forwards;
 }
-
 @keyframes sparkle {
   0% {
     transform: scale(1);
@@ -159,4 +194,38 @@ li span {
     opacity: 0;
     top: calc(100% + 10px);
   }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Progress */
+.progress-bar-container {
+  margin-bottom: 15px;
+}
+progress {
+  width: 100%;
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+progress::-webkit-progress-bar {
+  background: #ccc;
+}
+progress::-webkit-progress-value {
+  background: var(--primary);
+}
+#task-stats {
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: center;
 }
